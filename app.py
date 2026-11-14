@@ -5,7 +5,7 @@ app = Flask(__name__)
 HTML = """
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="google-site-verification" content="A4uw38yhALdtNyz7rkYlYTYLx6n1Wpc5B8ZwhqGssgI" />
 <title>SUGALI CYBER MAP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
