@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Birthday Surprise JIN</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg,#ff65a5,#9256d8);
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+h1 { margin-top: 55px; }
+
+.subtitle { font-size: 18px; }
+
+.gift-area {
+  position: relative;
+  height: 560px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.box {
+  position: absolute;
+  bottom: 25px;
+  width: 145px;
+  height: 105px;
+  background: #ffcf45;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px #67245c66;
+  z-index: 2;
+}
+
+.box:before {
+  content: "";
+  position: absolute;
+  left: 58px;
+  width: 28px;
+  height: 100%;
+  background: #ff4c91;
+}
+
+.lid {
+  position: absolute;
+  width: 165px;
+  height: 32px;
+  background: #ffdf65;
+  left: -10px;
+  top: -30px;
+  border-radius: 8px;
+  transition: .7s;
+}
+
+.bow {
+  position: absolute;
+  top: -58px;
+  left: 53px;
+  font-size: 40px;
+}
+
+.box.open .lid {
+  transform: translateY(-90px) rotate(-15deg);
+}
+
+.letter {
+  position: absolute;
+  bottom: 90px;
+  width: min(88vw,370px);
+  padding: 23px 17px;
+  background: #fff9f1;
+  color: #d83e91;
+  border-radius: 18px;
+  opacity: 0;
+  transform: translateY(120px) scale(.8);
+  transition: 1.2s ease;
+  z-index: 1;
+  box-shadow: 0 8px 25px #54204c66;
+  pointer-events: none;
+}
+
+.letter.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.letter h2 { font-size: 23px; }
+
+.letter p {
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+button {
+  background: white;
+  color: #d83e91;
+  border: none;
+  border-radius: 25px;
+  padding: 13px 22px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#hint { margin-top: 5px; }
+
+
+.flower {
+  position: fixed;
+  top: -50px;
+  z-index: 20;
+  pointer-events: none;
+  animation: flowerRain linear forwards;
+}
+@keyframes flowerRain {
+  0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0.2; }
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎉 A Special Surprise! 🎉</h1>
+<div class="subtitle">For My Special Friend ❤️</div>
+
+<div class="gift-area">
+
+<div class="letter" id="letter">
+  <h2>🎂 Happy Birthday JIN! 🎂</h2>
+
+  <p>
+  Mere pyare dost JIN ❤️<br><br>
+
+  Aaj tumhara special day hai!<br><br>
+
+  Meri dua hai ki tumhari zindagi hamesha
+  khushiyon se bhari rahe.<br><br>
+
+  Tumhare saare sapne poore hon aur tum
+  hamesha muskurate raho.<br><br>
+
+  Tumhari dosti mere liye bahut khaas hai.<br><br>
+
+  Happy Birthday once again, JIN! 🎂
+  </p>
+
+  <h3>Tumhara dost ❤️</h3>
+  <div>💐🎈💖🎉</div>
+</div>
+
+<div class="box" id="gift" onclick="openGift()">
+  <div class="lid"></div>
+  <div class="bow">🎀</div>
+</div>
+
+</div>
+
+<p id="hint">🎁 Tap the Gift Box to Open Your Surprise!</p>
+
+<script>
+function openGift() {
+  createPetals();
+  document.getElementById("gift").classList.add("open");
+  document.getElementById("letter").classList.add("show");
+  document.getElementById("hint").innerText =
+    "💖 A Special Birthday Surprise for JIN!";
+}
+
+function createPetals() {
+  const flowers = ["🌸","🌼","🌺","💮","🌷"];
+  for (let i = 0; i < 45; i++) {
+    const f = document.createElement("span");
+    f.className = "flower";
+    f.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.fontSize = (18 + Math.random() * 22) + "px";
+    f.style.animationDuration = (3 + Math.random() * 5) + "s";
+    document.body.appendChild(f);
+    f.addEventListener("animationend", () => f.remove());
+  }
+}
+
+</script>
+
+</body>
+</html>
+
