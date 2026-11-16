@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Special Love Gift ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;overflow-x:hidden;
+ text-align:center;color:white;font-family:Arial;
+ background:radial-gradient(ellipse at top,#76234f,#240c2d 65%,#090510);
+}
+h1{color:#ff9cc7;text-shadow:0 0 20px #ff2789;margin-top:35px}
+.sub{color:#ffd2e5}
+.scene{height:290px;display:flex;align-items:center;justify-content:center;perspective:800px}
+.gift{position:relative;width:180px;height:130px;cursor:pointer;transform-style:preserve-3d;margin-top:35px}
+.base{
+ position:absolute;bottom:0;width:180px;height:115px;
+ background:linear-gradient(110deg,#111,#333,#090909);
+ border:2px solid #ff397f;box-shadow:0 0 35px #ff277c;
+ border-radius:5px;
+}
+.ribbon{position:absolute;left:75px;top:0;width:30px;height:100%;background:#e91e63;z-index:2}
+.lid{
+ position:absolute;top:-5px;left:-10px;width:200px;height:35px;
+ background:linear-gradient(#ff6a9f,#bd164e);
+ border:2px solid #ffb2d0;border-radius:5px;
+ z-index:4;transform-origin:left bottom;transition:1.2s;
+ box-shadow:0 0 20px #ff3982;
+}
+.gift.open .lid{transform:translateY(-95px) rotate(-25deg)}
+.bow{position:absolute;top:-27px;left:62px;z-index:5;font-size:40px}
+.gift.open .bow{transform:translateY(-100px);transition:1s}
+button{
+ background:linear-gradient(90deg,#ff287b,#b51a75);
+ color:white;border:0;border-radius:30px;
+ padding:13px 23px;font-size:16px;margin:10px;cursor:pointer;
+ box-shadow:0 0 15px #ff3b91;
+}
+.letter{
+ display:none;background:#fff0f6;color:#8e164a;
+ max-width:340px;margin:10px auto;padding:25px;
+ border-radius:15px;box-shadow:0 0 30px #ff5b9e;
+ animation:show 1s;
+}
+@keyframes show{from{opacity:0;transform:scale(.2) rotate(-10deg)}to{opacity:1;transform:scale(1)}}
+.balloon{position:fixed;bottom:-100px;font-size:38px;animation:up 6s linear forwards;pointer-events:none}
+@keyframes up{to{transform:translateY(-120vh) rotate(20deg);opacity:0}}
+.heart{position:fixed;top:-30px;animation:fall 7s linear infinite;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:0}}
+#creator{margin:40px 15px 30px;padding:20px;border:1px solid #d94b8c;border-radius:18px}
+input{padding:13px;border:0;border-radius:10px;width:85%;max-width:310px;margin:7px;font-size:16px}
+</style>
+</head>
+<body>
+<h1>💖 A Special Surprise 💖</h1>
+<p class="sub" id="greeting">Someone has a gift for you!</p>
+
+<div class="scene">
+ <div class="gift" id="gift" onclick="openGift()">
+  <div class="base"></div>
+  <div class="ribbon"></div>
+  <div class="lid"></div>
+  <div class="bow">🎀</div>
+ </div>
+</div>
+<p id="instruction">Tap the gift box to open it 🎁</p>
+
+<div class="letter" id="letter">
+ <h2>💌 Dear <span id="person">Someone Special</span></h2>
+ <h1>❤️ You Are Special ❤️</h1>
+ <p>May your days be filled with happiness, smiles and beautiful moments.</p>
+ <p>🌹 You deserve all the love in the world 🌹</p>
+ <h2>💕 With Love 💕</h2>
+</div>
+
+<div id="creator">
+ <h2>🎁 Create New Gift</h2>
+ <p>Enter someone's name</p>
+ <input id="nameInput" placeholder="Write a name">
+ <br>
+ <button onclick="makeLink()">Generate Gift Link ❤️</button>
+ <br>
+ <input id="result" readonly placeholder="Your gift link">
+ <button onclick="copyLink()">Copy Link 📋</button>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const name=params.get("name");
+if(name){
+ document.getElementById("greeting").innerText="A special gift for "+name+" ❤️";
+ document.getElementById("person").innerText=name;
+ document.getElementById("creator").style.display="none";
+}
+function openGift(){
+ const gift=document.getElementById("gift");
+ if(gift.classList.contains("open"))return;
+ gift.classList.add("open");
+ document.getElementById("letter").style.display="block";
+ document.getElementById("instruction").innerText="Your surprise is here! 💖";
+ for(let i=0;i<18;i++){
+  let b=document.createElement("div");
+  b.className="balloon";
+  b.innerText=["🎈","❤️","💗","🎈"][i%4];
+  b.style.left=Math.random()*95+"%";
+  b.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),8500);
+ }
+}
+function makeLink(){
+ let n=document.getElementById("nameInput").value.trim();
+ if(!n){alert("Please enter a name");return}
+ document.getElementById("result").value=
+ location.origin+location.pathname+"?name="+encodeURIComponent(n);
+}
+function copyLink(){
+ let box=document.getElementById("result");
+ if(!box.value){alert("Generate a link first");return}
+ box.select();
+ if(navigator.clipboard){
+  navigator.clipboard.writeText(box.value).then(()=>alert("Copied! ❤️"))
+  .catch(()=>alert("Select and copy the link manually"));
+ }else{alert("Select and copy the link manually")}
+}
+for(let i=0;i<12;i++){
+ let h=document.createElement("div");
+ h.className="heart";h.innerText="💗";
+ h.style.left=Math.random()*100+"%";
+ h.style.animationDelay=Math.random()*7+"s";
+ h.style.fontSize=(12+Math.random()*18)+"px";
+ document.body.appendChild(h);
+}
+</script>
+</body>
+</html>
